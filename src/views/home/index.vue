@@ -68,6 +68,7 @@ export default {
 
 <style scoped lang="scss">
   .home{
+    padding-top: 54px;
     .search{
       position: fixed;
       top: 0;
