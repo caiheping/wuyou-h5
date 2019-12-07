@@ -8,12 +8,13 @@
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"></router-view>
     </transition>
+    <!--  是否底部导航  -->
     <tab-bar v-if="$route.meta.hasTabBar"></tab-bar>
   </div>
 </template>
 
 <script>
-import TabBar from './components/tabbar'
+import TabBar from './components/TabBar'
 export default {
   components: {
     TabBar
@@ -22,7 +23,6 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'static/style/common';
   .router-fade-enter-active, .router-fade-leave-active {
     transition: opacity .2s;
   }

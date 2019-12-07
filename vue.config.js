@@ -3,7 +3,7 @@ const path = require('path')
 function resolve (dir) {
   return path.join(__dirname, dir)
 }
-
+console.log(process.env.NODE_ENV)
 module.exports = {
   publicPath: './',
   lintOnSave: false,
@@ -15,8 +15,15 @@ module.exports = {
     // 清除svg默认的处理方式
     config.module.rules.delete('svg')
   },
+  css: {
+    loaderOptions: {
+      // 每个页面都会引入下面这个文件
+      sass: {
+        prependData: `@import "~@/static/style/mixins.scss";`
+      }
+    }
+  },
   configureWebpack: {
-    devtool: 'source-map',
     resolve: {
       extensions: ['.js', '.vue', '.json', '.css'],
       alias: {

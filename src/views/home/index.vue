@@ -1,57 +1,106 @@
 <template>
   <div class="home">
-    <div class="search">
-      <span>广州</span>
-      <van-search
-        @click.native="handleSearchClick"
-        :readonly="true"
-        v-model="value"
-        placeholder="请输入搜索关键词"
-        shape="round"
-      >
-      </van-search>
-    </div>
-    <van-swipe :autoplay="3000">
-      <van-swipe-item v-for="(image, index) in images" :key="index">
-        <img v-lazy="image" style="width: 100%;height: 200px;" />
-      </van-swipe-item>
-    </van-swipe>
-    <ul class="nav-list">
-      <li v-for="item in 4" :key="item">
-        <van-icon name="close" />
-        <span>收益</span>
-      </li>
-    </ul>
-    <div class="recommend">
-      <div class="top">
-        <div class="line"></div>
-        <span>推荐</span>
-        <div class="line"></div>
+    <BaseLayout paddingTop="54">
+      <div class="search" slot="navBar">
+        <span @click="show = true">广州</span>
+        <van-search
+          @click.native="handleSearchClick"
+          :readonly="true"
+          v-model="value"
+          placeholder="请输入搜索关键词"
+          shape="round"
+        >
+        </van-search>
       </div>
-      <ul class="position">
-        <li v-for="item in 10" :key="item">
-          <div class="left">
-            <p>Web前端</p>
-            <p>阿里巴巴</p>
+      <div slot="content">
+        <van-swipe :autoplay="3000">
+          <van-swipe-item v-for="(image, index) in images" :key="index">
+            <img v-lazy="image" style="width: 100%;height: 200px;" />
+          </van-swipe-item>
+        </van-swipe>
+        <ul class="nav-list">
+          <li v-for="(item, index) in navLists" :key="index">
+            <svg-icon :style="{
+            color: item.color
+            }" :icon-class="item.icon" class-name="icon"/>
+            <span>{{item.name}}</span>
+          </li>
+        </ul>
+        <div class="recommend">
+          <div class="top">
+            <div class="line"></div>
+            <span>推荐</span>
+            <div class="line"></div>
           </div>
-          <div class="right">
-            <p>8k-10k</p>
-            <p>广州-天河区</p>
-          </div>
-        </li>
-      </ul>
-    </div>
+          <ul class="position">
+            <li v-for="item in 10" :key="item">
+              <div class="left">
+                <p>test</p>
+                <p>阿里巴巴</p>
+              </div>
+              <div class="right">
+                <p>test</p>
+                <p>广州-天河区</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </BaseLayout>
+    <van-popup
+      v-model="show"
+      position="bottom"
+      :style="{ height: '50%' }"
+    >
+      <van-area :area-list="areaList" :columns-num="3" value="110101" />
+    </van-popup>
   </div>
 </template>
 
 <script>
+import BaseLayout from '../../components/BaseLayout'
+import keepPosition from '../../mixins/keepPosition'
+import area from '../../utils/area'
 export default {
+  mixins: [keepPosition],
+  components: {
+    BaseLayout
+  },
   data () {
     return {
+      show: false,
+      areaList: area,
       value: '',
       images: [
         'https://img.yzcdn.cn/vant/apple-1.jpg',
         'https://img.yzcdn.cn/vant/apple-2.jpg'
+      ],
+      navLists: [
+        {
+          color: 'rgb(129, 132, 255)',
+          icon: 'nav-look',
+          name: '谁看过我'
+        },
+        {
+          color: 'rgb(255, 136, 129)',
+          icon: 'nav-apply',
+          name: '申请记录'
+        },
+        {
+          color: 'rgb(255, 129, 198)',
+          icon: 'nav-nearby',
+          name: '附近工作'
+        },
+        {
+          color: 'rgb(129, 255, 157)',
+          icon: 'nav-school-recruit',
+          name: '校园招聘'
+        },
+        {
+          color: 'rgb(255, 211, 129)',
+          icon: 'nav-strategy',
+          name: '求职攻略'
+        }
       ]
     }
   },
@@ -59,16 +108,12 @@ export default {
     handleSearchClick () {
       console.log('search')
     }
-  },
-  activated () {
-    document.body.scrollTop = this.$route.meta.saveTop
   }
 }
 </script>
 
 <style scoped lang="scss">
   .home{
-    padding-top: 54px;
     .search{
       position: fixed;
       top: 0;
@@ -97,8 +142,13 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        .icon{
+          font-size: 40px;
+        }
         span{
-          font-size: 14px;
+          display: block;
+          margin-top: 5px;
+          font-size: 12px;
         }
       }
     }
@@ -106,6 +156,7 @@ export default {
       margin-top: 10px;
       padding: 10px 0 0;
       background: #ffffff;
+      position: relative;
       .top{
         display: flex;
         justify-content: center;
@@ -114,12 +165,15 @@ export default {
         span{
           font-size: 18px;
           display: block;
-          padding: 5px 10px;
+          padding: 5px 20px;
+          background: linear-gradient(to right, red, blue);
+          -webkit-background-clip: text;
+          color: transparent;
         }
         .line{
           background: dodgerblue;
           height: 1px;
-          width: 50px;
+          width: 75px;
         }
       }
       .position{
@@ -127,10 +181,11 @@ export default {
         flex-direction: column;
         padding: 0 15px;
         li{
-          border-bottom: 1px solid #bebebe;
+          border-bottom: 1px solid $border-color;
           display: flex;
           justify-content: space-between;
           padding: 10px 0;
+          color: $text-color;
           .left{
             display: flex;
             flex-direction: column;

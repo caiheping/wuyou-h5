@@ -7,8 +7,30 @@ import './registerServiceWorker'
 import '@/static/icons'
 import 'amfe-flexible/index.js'
 
-import { Button, Tabbar, TabbarItem, NavBar, Search, Swipe, SwipeItem, Lazyload, Grid, GridItem, Row, Col, Icon } from 'vant'
+import {
+  Button,
+  Tabbar,
+  TabbarItem,
+  NavBar,
+  Search,
+  Swipe,
+  SwipeItem,
+  Lazyload,
+  Grid,
+  GridItem,
+  Row,
+  Col,
+  Icon,
+  Toast,
+  Cell,
+  CellGroup,
+  Image,
+  SwipeCell,
+  Area,
+  Popup
+} from 'vant'
 import 'vant/lib/index.css'
+import './static/style/common.scss'
 
 Vue.config.productionTip = false
 
@@ -25,6 +47,13 @@ Vue.use(Button)
   .use(Row)
   .use(Col)
   .use(Icon)
+  .use(Toast)
+  .use(Cell)
+  .use(CellGroup)
+  .use(Image)
+  .use(SwipeCell)
+  .use(Area)
+  .use(Popup)
 
 new Vue({
   router,
