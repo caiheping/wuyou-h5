@@ -56,6 +56,30 @@ const routes = [
       hasTabBar: true,
       title: '用户'
     }
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: _import('search/index'),
+    meta: {
+      title: '搜索'
+    }
+  },
+  {
+    path: '/jobLists',
+    name: 'jobLists',
+    component: _import('jobLists/index'),
+    meta: {
+      title: '职位'
+    }
+  },
+  {
+    path: '/jobDetail',
+    name: 'jobDetail',
+    component: _import('jobDetail/index'),
+    meta: {
+      title: '职位详情'
+    }
   }
 ]
 

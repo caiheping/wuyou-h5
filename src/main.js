@@ -27,10 +27,16 @@ import {
   Image,
   SwipeCell,
   Area,
-  Popup
+  Popup,
+  DropdownMenu,
+  DropdownItem,
+  List,
+  PullRefresh,
+  Divider,
 } from 'vant'
 import 'vant/lib/index.css'
 import './static/style/common.scss'
+import './static/style/vant.css'
 
 Vue.config.productionTip = false
 
@@ -54,6 +60,11 @@ Vue.use(Button)
   .use(SwipeCell)
   .use(Area)
   .use(Popup)
+  .use(DropdownMenu)
+  .use(DropdownItem)
+  .use(List)
+  .use(PullRefresh)
+  .use(Divider)
 
 new Vue({
   router,

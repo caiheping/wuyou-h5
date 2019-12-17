@@ -1,10 +1,6 @@
 <template>
-  <div class="box" :style="{
-    paddingTop: paddingTop + 'px'
-  }">
-    <div class="navBar" :style="{
-    height: paddingTop + 'px'
-  }">
+  <div class="box">
+    <div class="navBar" ref="nav">
       <slot name="navBar"></slot>
     </div>
     <div class="content">
@@ -12,17 +8,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  props: {
-    paddingTop: {
-      type: [String, Number],
-      default: 46
-    }
-  }
-}
-</script>
 
 <style scoped lang="scss">
   .box{

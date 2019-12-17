@@ -68,7 +68,7 @@ export default {
         box-shadow: 0 0 5px $box-shadow-color;
         .baseInfo{
           display: flex;
-          font-size: 14px;
+          font-size: $text-font-size;
           .left{
             margin-right: 15px;
           }

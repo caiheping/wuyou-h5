@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    <BaseLayout paddingTop="54">
+    <BaseLayout>
       <div class="search" slot="navBar">
         <span @click="show = true">广州</span>
         <van-search
           @click.native="handleSearchClick"
           :readonly="true"
-          v-model="value"
+          v-model="search"
           placeholder="请输入搜索关键词"
           shape="round"
         >
@@ -70,7 +70,7 @@ export default {
     return {
       show: false,
       areaList: area,
-      value: '',
+      search: '',
       images: [
         'https://img.yzcdn.cn/vant/apple-1.jpg',
         'https://img.yzcdn.cn/vant/apple-2.jpg'
@@ -107,6 +107,7 @@ export default {
   methods: {
     handleSearchClick () {
       console.log('search')
+      this.$router.push('/search')
     }
   }
 }
@@ -125,7 +126,7 @@ export default {
       background: #ffffff;
       padding: 0 10px;
       span{
-        font-size: 14px;
+        font-size: $text-font-size;
       }
       .van-search{
         flex: 1;
@@ -163,7 +164,7 @@ export default {
         align-items: center;
         color: dodgerblue;
         span{
-          font-size: 18px;
+          font-size: $title-font-size;
           display: block;
           padding: 5px 20px;
           background: linear-gradient(to right, red, blue);
@@ -193,6 +194,7 @@ export default {
           }
           .right{
             display: flex;
+            text-align: right;
             flex-direction: column;
             justify-content: space-between;
           }
