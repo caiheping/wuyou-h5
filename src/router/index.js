@@ -80,6 +80,14 @@ const routes = [
     meta: {
       title: '职位详情'
     }
+  },
+  {
+    path: '/companyDetail',
+    name: 'companyDetail',
+    component: _import('companyDetail/index'),
+    meta: {
+      title: '公司详情'
+    }
   }
 ]
 

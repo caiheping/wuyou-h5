@@ -30,9 +30,9 @@
         </div>
         <div class="company-info">
           <h4>公司信息</h4>
-          <div class="top">
+          <div class="top" @click="toCompanyDetail">
             <div>
-              <p>两阶段锁可信息科技有限公司</p>
+              <p>阿里巴巴集团</p>
               <p>民营|150-200人|计算机</p>
             </div>
             <van-icon name="arrow" />
@@ -91,6 +91,14 @@ export default {
     },
     onClickRight () {
       console.log(99)
+    },
+    toCompanyDetail () {
+      this.$router.push({
+        path: '/companyDetail',
+        query: {
+          cId: 12
+        }
+      })
     }
   },
   mounted () {

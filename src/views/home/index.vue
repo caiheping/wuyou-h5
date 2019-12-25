@@ -14,8 +14,8 @@
       </div>
       <div slot="content">
         <van-swipe :autoplay="3000">
-          <van-swipe-item v-for="(image, index) in images" :key="index">
-            <img v-lazy="image" style="width: 100%;height: 200px;" />
+          <van-swipe-item v-for="(item, index) in banners" :key="index">
+            <img v-lazy="item.image" style="width: 100%;height: 200px;" />
           </van-swipe-item>
         </van-swipe>
         <ul class="nav-list">
@@ -61,6 +61,7 @@
 import BaseLayout from '../../components/BaseLayout'
 import keepPosition from '../../mixins/keepPosition'
 import area from '../../utils/area'
+import { banners } from '../../api/home/index'
 export default {
   mixins: [keepPosition],
   components: {
@@ -71,7 +72,7 @@ export default {
       show: false,
       areaList: area,
       search: '',
-      images: [
+      banners: [
         'https://img.yzcdn.cn/vant/apple-1.jpg',
         'https://img.yzcdn.cn/vant/apple-2.jpg'
       ],
@@ -109,6 +110,14 @@ export default {
       console.log('search')
       this.$router.push('/search')
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      banners().then(res => {
+        console.log(res)
+        this.banners = res.results
+      })
+    })
   }
 }
 </script>

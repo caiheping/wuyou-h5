@@ -33,6 +33,8 @@ import {
   List,
   PullRefresh,
   Divider,
+  Tab,
+  Tabs
 } from 'vant'
 import 'vant/lib/index.css'
 import './static/style/common.scss'
@@ -65,6 +67,8 @@ Vue.use(Button)
   .use(List)
   .use(PullRefresh)
   .use(Divider)
+  .use(Tab)
+  .use(Tabs)
 
 new Vue({
   router,
