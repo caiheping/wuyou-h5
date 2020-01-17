@@ -52,7 +52,7 @@
       position="bottom"
       :style="{ height: '50%' }"
     >
-      <van-area :area-list="areaList" :columns-num="3" value="110101" />
+      <van-area :area-list="areasList" :columns-num="3" value="110101" @confirm="selectArea" @cancel="show = false" />
     </van-popup>
   </div>
 </template>
@@ -60,8 +60,8 @@
 <script>
 import BaseLayout from '../../components/BaseLayout'
 import keepPosition from '../../mixins/keepPosition'
-import area from '../../utils/area'
-import { banners } from '../../api/home/index'
+// import area from '../../utils/area'
+import { banners, areas } from '../../api/home/index'
 export default {
   mixins: [keepPosition],
   components: {
@@ -70,7 +70,7 @@ export default {
   data () {
     return {
       show: false,
-      areaList: area,
+      areasList: {},
       search: '',
       banners: [
         'https://img.yzcdn.cn/vant/apple-1.jpg',
@@ -109,14 +109,74 @@ export default {
     handleSearchClick () {
       console.log('search')
       this.$router.push('/search')
+    },
+    selectArea () {
+      this.show = false
+    },
+    returnArea2 (arr) {
+      let areasObj = {}
+      console.log(arr)
+      arr.forEach(item => {
+        item['children'] = []
+        areasObj[item.id] = item
+      })
+      let areas = []
+      arr.forEach(list => {
+        if (list.aParent !== null) {
+          areasObj[list.aParent]['children'].push(list)
+        } else {
+          areas.push(list)
+        }
+      })
+      return {
+        areas,
+        areasObj
+      }
+    },
+    returnArea3 (arr) {
+      console.log(arr)
+      let datas = this.returnArea2(arr)
+      let provinceList = {}
+      let cityList = {}
+      let countyList = {}
+      datas.areas.forEach(item1 => {
+        provinceList[item1.id] = item1.atitle
+        if (item1.children && item1.children.length) {
+          item1.children.forEach(item2 => {
+            cityList[item2.id] = item2.atitle
+            if (item2.children && item2.children.length) {
+              item2.children.forEach(item3 => {
+                countyList[item3.id] = item3.atitle
+              })
+            }
+          })
+        }
+      })
+      return {
+        province_list: provinceList,
+        city_list: cityList,
+        county_list: countyList
+      }
+    },
+    getAreas () {
+      return areas().then(res => {
+        console.log(res)
+        this.areasList = this.returnArea3(res)
+      })
+    },
+    getBanners () {
+      return banners().then(res => {
+        this.banners = res.results
+      })
+    },
+    async init () {
+      await this.getAreas()
+      await this.getBanners()
     }
   },
   mounted () {
     this.$nextTick(() => {
-      banners().then(res => {
-        console.log(res)
-        this.banners = res.results
-      })
+      this.init()
     })
   }
 }

@@ -53,7 +53,6 @@ function HttpRequest (url, method = 'GET', params = {}, isLoading = true) {
     data: method === 'POST' || method === 'PUT' ? params : null,
     timeout: 60000
   }
-  console.log(url)
   return new Promise((resolve, reject) => {
     axios(httpDefault).then((response) => {
       successState(response)
