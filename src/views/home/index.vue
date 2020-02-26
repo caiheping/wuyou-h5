@@ -52,7 +52,7 @@
       position="bottom"
       :style="{ height: '50%' }"
     >
-      <van-area :area-list="areasList" :columns-num="3" value="110101" @confirm="selectArea" @cancel="show = false" />
+      <van-area :area-list="areasList" :columns-num="2" value="110101" @confirm="selectArea" @cancel="show = false" />
     </van-popup>
   </div>
 </template>
@@ -122,8 +122,8 @@ export default {
       })
       let areas = []
       arr.forEach(list => {
-        if (list.aParent !== null) {
-          areasObj[list.aParent]['children'].push(list)
+        if (list.parent !== null) {
+          areasObj[list.parent]['children'].push(list)
         } else {
           areas.push(list)
         }
@@ -138,30 +138,30 @@ export default {
       let datas = this.returnArea2(arr)
       let provinceList = {}
       let cityList = {}
-      let countyList = {}
+      // let countyList = {}
       datas.areas.forEach(item1 => {
-        provinceList[item1.id] = item1.atitle
+        provinceList[item1.id] = item1.aTitle
         if (item1.children && item1.children.length) {
           item1.children.forEach(item2 => {
-            cityList[item2.id] = item2.atitle
-            if (item2.children && item2.children.length) {
-              item2.children.forEach(item3 => {
-                countyList[item3.id] = item3.atitle
-              })
-            }
+            cityList[item2.id] = item2.aTitle
+            // if (item2.children && item2.children.length) {
+            //   item2.children.forEach(item3 => {
+            //     countyList[item3.id] = item3.aTitle
+            //   })
+            // }
           })
         }
       })
       return {
         province_list: provinceList,
-        city_list: cityList,
-        county_list: countyList
+        city_list: cityList
+        // county_list: countyList
       }
     },
     getAreas () {
       return areas().then(res => {
-        console.log(res)
         this.areasList = this.returnArea3(res)
+        console.log(this.areasList)
       })
     },
     getBanners () {
@@ -196,6 +196,11 @@ export default {
       padding: 0 10px;
       span{
         font-size: $text-font-size;
+        width: 44px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .van-search{
         flex: 1;

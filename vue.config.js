@@ -5,7 +5,6 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-console.log(process.env.NODE_ENV)
 module.exports = {
   publicPath: './',
   lintOnSave: false,
@@ -79,7 +78,7 @@ module.exports = {
         target: 'http://localhost:8000',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/api': '/api'
         }
       }
     }

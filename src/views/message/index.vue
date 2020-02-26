@@ -45,12 +45,19 @@ export default {
 }
 </script>
 
+<style>
+  .van-swipe-cell__right{
+    right: -1px !important;
+  }
+</style>
+
 <style scoped lang="scss">
   .message {
     .content{
       padding: 15px;
       .list{
         li{
+          overflow: hidden;
           position: relative;
           background: #ffffff;
           margin-bottom: 15px;

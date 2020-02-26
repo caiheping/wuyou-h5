@@ -52,6 +52,9 @@
             <p v-for="(item, index) in requirement" :key="item">{{index+1}}、{{item}}</p>
           </div>
         </div>
+        <div class="apply">
+          <van-button square type="danger" style="height: 100%;width: 100%;" text="立即申请" />
+        </div>
       </div>
     </BaseLayout>
   </div>
@@ -112,7 +115,7 @@ export default {
     background: #ffffff;
     min-height: 100vh;
     .content{
-      padding: 10px 15px;
+      padding: 10px 15px 60px;
       .job-base{
         box-shadow: 0 0 5px $box-shadow-color;
         border-radius: 4px;
@@ -200,6 +203,17 @@ export default {
             color: $span-color;
           }
         }
+      }
+      .apply{
+        background: #ffffff;
+        position: fixed;
+        display: flex;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        box-sizing: border-box;
+        border-top: 1px solid $border-color;
       }
     }
   }

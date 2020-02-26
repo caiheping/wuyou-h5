@@ -6,7 +6,7 @@
       <keep-alive v-if="$route.meta.keepAlive">
         <router-view></router-view>
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive"></router-view>
+      <router-view v-else></router-view>
     </transition>
     <!--  是否底部导航  -->
     <tab-bar v-if="$route.meta.hasTabBar"></tab-bar>

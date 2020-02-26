@@ -4,7 +4,7 @@
       <div slot="navBar">
         <van-nav-bar
           title="简历"
-          right-text="清空记录"
+          right-text="预览"
           @click-right="onClickRight"
         />
       </div>
